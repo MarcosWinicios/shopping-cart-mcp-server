@@ -1,0 +1,22 @@
+spring:
+  application:
+    name: shopping-cart-mcp
+  data:
+    mongodb:
+      uri: mongodb://localhost:27017/shopping-cart-mcp
+  # MCP Server configuration
+  ai:
+    mcp:
+      server:
+        type: SYNC
+        stdio: true
+        name: shopping-cart-server
+        version: 1.0.0
+
+  # Critical for STDIO communication
+  main:
+    web-application-type: none
+    banner-mode: off
+    logging:
+      pattern:
+        console:
