@@ -3,20 +3,25 @@ package com.demo.shopping_cart_mcp.entity;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Document;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 
-@Document(collection = "cart_items")
+@Entity
+@Table(name = "tb_cart_items")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 public class CartItem {
 
     @Id
-    private String id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
     private String productId;
-    private  String productName;
+    private String productName;
     private double price;
     private int quantity;
 }
