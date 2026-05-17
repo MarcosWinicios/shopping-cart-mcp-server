@@ -23,8 +23,23 @@ public class ShoppingCartMcpService {
     private static final Map<String, Double> PRODUCTS = Map.of(
             "iPhone", 79999.0,
             "MacBook Air", 129999.0,
-            "Boat Airdrops", 1999.0
+            "Boat Airdrops", 1999.0,
+            "NoteBook", 2000.0,
+            "SmartPhone", 1800.0,
+            "Tablet", 1750.0,
+            "Monitor", 850.0,
+            "TV", 900.0
     );
+
+    @Tool(
+            name = "getAvailableProducts",
+            description = "Fetch the list of available products with their prices."
+    )
+    public List<String> getAvailableProducts(){
+        return PRODUCTS.entrySet().stream()
+                .map(entry -> entry.getKey() + ": $" + entry.getValue())
+                .toList();
+    }
 
     @Tool(
             name = "addToCart",
@@ -73,6 +88,10 @@ public class ShoppingCartMcpService {
     )
     public String getItemCart(@ToolParam String productName) {
         CartItem cartItem = cartItemRepository.findByProductId(productName);
+
+        if(cartItem ==  null){
+            return "Product " +  productName + " not found in cart.";
+        }
 
         return "Your available item in cart is "
                 + cartItem.getProductName()
