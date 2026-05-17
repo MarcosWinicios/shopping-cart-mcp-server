@@ -66,9 +66,9 @@ Configurado em `application.yaml`:
 ```yaml
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:5432/shopping_cart_mcp
+    url: jdbc:postgresql://localhost:5432/shopping-cart-mcp
     username: postgres
-    password: postgres
+    password: 123456
     driver-class-name: org.postgresql.Driver
   jpa:
     hibernate:
@@ -76,11 +76,13 @@ spring:
 ```
 
 **Para rodar PostgreSQL**:
-1. Docker: `docker run -d -p 5432:5432 -e POSTGRES_PASSWORD=postgres -e POSTGRES_DB=shopping_cart_mcp postgres`
-2. Ou use instalação local de PostgreSQL
-3. Hibernate cria/atualiza automaticamente a tabela `cart_items` no startup (`ddl-auto: update`)
 
-A configuração `ddl-auto: update` cria/atualiza automaticamente tabelas a partir de definições de `@Entity`.
+Certifique-se de ter PostgreSQL instalado localmente e crie o banco de dados:
+```bash
+createdb -U postgres -h localhost shopping-cart-mcp
+```
+
+Hibernate cria/atualiza automaticamente a tabela `cart_items` no startup (`ddl-auto: update`). A configuração `ddl-auto: update` cria/atualiza automaticamente tabelas a partir de definições de `@Entity`.
 
 ## Development Patterns & Conventions
 
@@ -133,7 +135,7 @@ com.demo.shopping_cart_mcp/
 - **Basic test**: `ShoppingCartMcpApplicationTests` only verifies context loads
 - **Manual tool testing**: Start server and invoke tools via MCP client (e.g., Claude MCP client)
 - **Integration gaps**: No repository tests or tool call simulation tests; add these for new features
-- **PostgreSQL required**: Tests require a running PostgreSQL instance or embedded H2 database
+- **H2 embedded**: Tests use H2 database (in-memory) and don't require PostgreSQL to run
 
 ## Dependencies & Versions
 

@@ -8,23 +8,13 @@ Servidor MCP (Model Context Protocol) construído com Spring Boot que expõe ope
 
 - Java 21+
 - Maven 3.8+
-- PostgreSQL 12+ (ou use Docker)
+- PostgreSQL 12+
 
 ### 1. Iniciar PostgreSQL
 
-**Opção A: Docker**
+Crie o banco de dados localmente:
 ```bash
-docker run -d \
-  --name shopping-cart-postgres \
-  -p 5432:5432 \
-  -e POSTGRES_PASSWORD=postgres \
-  -e POSTGRES_DB=shopping_cart_mcp \
-  postgres:latest
-```
-
-**Opção B: PostgreSQL Local**
-```bash
-createdb -U postgres -h localhost shopping_cart_mcp
+createdb -U postgres -h localhost shopping-cart-mcp
 ```
 
 ### 2. Build do Projeto
@@ -83,43 +73,17 @@ src/
     └── resources/application-test.yaml
 ```
 
-## ⚙️ Configuração
-
-A configuração PostgreSQL está em `src/main/resources/application.yaml`:
-
-```yaml
-spring:
-  datasource:
-    url: jdbc:postgresql://localhost:5432/shopping_cart_mcp
-    username: postgres
-    password: postgres
-  jpa:
-    hibernate:
-      ddl-auto: update
-```
 
 Hibernate cria/atualiza automaticamente as tabelas baseado nas entidades.
 
 ## 🧪 Testes
 
 ```bash
-# Rodar testes (usa H2 em memória, não requer PostgreSQL)
+# Rodar testes (usa H2 database em teste)
 ./mvnw test
 
 # Build completo com testes
 ./mvnw clean package
-```
-
-## 📝 Adicionando Produtos
-
-Edite o mapa `PRODUCTS` em `ShoppingCartMcpService.java`:
-
-```java
-private static final Map<String, Double> PRODUCTS = Map.of(
-    "iPhone", 79999.0,
-    "MacBook Air", 129999.0,
-    "Boat Airdrops", 1999.0
-);
 ```
 
 ## 🆕 Adicionando Ferramentas
