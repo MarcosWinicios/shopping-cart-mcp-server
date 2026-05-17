@@ -1,3 +1,5 @@
+server:
+  port: 8080
 spring:
   application:
     name: shopping-cart-mcp
@@ -16,18 +18,13 @@ spring:
   ai:
     mcp:
       server:
+        enabled: true
+        protocol: STREAMABLE
         type: SYNC
-        stdio: true
+        stdio: false
         name: shopping-cart-server
         version: 1.0.0
 
-  # Critical for STDIO communication
-  main:
-    web-application-type: none
-    banner-mode: log
-
 logging:
-  pattern:
-    console:
   file:
     name: logs/shopping-cart-mcp.log

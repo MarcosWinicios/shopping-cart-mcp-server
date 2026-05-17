@@ -36,7 +36,7 @@ O servidor aguardará conexões MCP no stdin/stdout.
 ## 📊 Arquitetura
 
 ```
-AI Client ←→ MCP Server (stdio) ←→ Spring Boot App ←→ PostgreSQL
+AI Client ←→ MCP Server ←→ Spring Boot App ←→ PostgreSQL
 ```
 
 O servidor **NÃO** é uma REST API - é um processo stdio-based que comunica com clientes MCP.
@@ -62,24 +62,22 @@ O servidor **NÃO** é uma REST API - é um processo stdio-based que comunica co
 src/
 ├── main/
 │   ├── java/com/demo/shopping_cart_mcp/
-│   │   ├── ShoppingCartMcpApplication.java      # Configuração Boot
+│   │   ├── ShoppingCartMcpApplication.java      # Configuração Boot e registro de ferramentas
 │   │   ├── entity/CartItem.java                 # Entidade JPA
 │   │   ├── repository/CartItemRepository.java   # Spring Data JPA
-│   │   └── tools/ShoppingCartMcpService.java    # Serviço com @Tool
+│   │   └── tools/ShoppingCartMcpService.java    # Serviço com métodos @Tool
 │   └── resources/application.yaml               # Configuração
 └── test/
-    ├── java/com/demo/shopping_cart_mcp/
-    │   └── ShoppingCartMcpApplicationTests.java
-    └── resources/application-test.yaml
+    └── java/com/demo/shopping_cart_mcp/
+        └── ShoppingCartMcpApplicationTests.java # Teste básico de contexto
 ```
-
 
 Hibernate cria/atualiza automaticamente as tabelas baseado nas entidades.
 
 ## 🧪 Testes
 
 ```bash
-# Rodar testes (usa H2 database em teste)
+# Rodar testes
 ./mvnw test
 
 # Build completo com testes
@@ -100,13 +98,35 @@ public String myTool(@ToolParam String param1, @ToolParam int param2) {
 
 2. Rebuild: `./mvnw clean package`
 
+## 🌐 Usando MCP em IDEs
+
+Este servidor MCP pode ser integrado a uma IDE adicionando-o com a seguinte configuração
+
+
+```json
+{
+  "mcpServers": {
+    "shopping-cart-server": {
+      "url": "http://localhost:8080/mcp"
+    }
+  }
+}
+```
+
+### Exemplo de Uso em Chat IA
+
+```
+"Adicione 2 iPhones e 1 MacBook Air ao carrinho de compras"
+```
+
+O assistente IA invocará automaticamente as ferramentas disponíveis para processar o comando.
+
 ## 🔗 Dependências
 
 - Spring Boot 3.5.14
 - Spring AI MCP 1.1.6
 - Spring Data JPA 3.5.11
 - PostgreSQL Driver (runtime)
-- H2 (test scope)
 - Lombok (optional)
 
 ## 📚 Referência
