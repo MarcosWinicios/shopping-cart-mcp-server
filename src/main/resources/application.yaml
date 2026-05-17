@@ -24,7 +24,10 @@ spring:
   # Critical for STDIO communication
   main:
     web-application-type: none
-    banner-mode: off
-    logging:
-      pattern:
-        console:
+    banner-mode: log
+
+logging:
+  pattern:
+    console:
+  file:
+    name: logs/shopping-cart-mcp.log
