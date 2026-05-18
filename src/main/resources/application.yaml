@@ -28,3 +28,7 @@ spring:
 logging:
   file:
     name: logs/shopping-cart-mcp.log
+  level:
+    org.springframework.web.filter.CommonsRequestLoggingFilter: DEBUG
+    io.modelcontextprotocol: DEBUG
+    org.springframework.ai.mcp: DEBUG
