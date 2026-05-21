@@ -16,9 +16,4 @@ public class ShoppingCartMcpApplication {
 		SpringApplication.run(ShoppingCartMcpApplication.class, args);
 	}
 
-	@Bean
-	public List<ToolCallback> shoppingCartToolCallBack(ShoppingCartMcpService cartMcpService) {
-		return List.of(ToolCallbacks.from(cartMcpService));
-
-	}
 }
